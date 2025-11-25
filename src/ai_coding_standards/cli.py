@@ -5,7 +5,7 @@ CLI tool for installing and managing coding standards in projects.
 import argparse
 import sys
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 import shutil
 
@@ -205,6 +205,104 @@ def setup_pre_commit(target_dir: Path) -> None:
         print("Make sure pre-commit is installed: pip install pre-commit")
 
 
+def check_compliance(
+    target_dir: Path, detailed: bool = False, report: Optional[str] = None
+) -> None:
+    """Check code compliance with coding standards.
+
+    Args:
+        target_dir: Directory to check
+        detailed: Show detailed information
+        report: Path to save HTML report (optional)
+    """
+    target_dir = Path(target_dir).resolve()
+
+    if not target_dir.exists():
+        print(f"Error: Target directory does not exist: {target_dir}")
+        sys.exit(1)
+
+    print("Checking code compliance...")
+    print("=" * 50)
+
+    issues = []
+
+    # Check for Python files
+    python_files = list(target_dir.rglob("*.py"))
+    python_files = [
+        f
+        for f in python_files
+        if "__pycache__" not in str(f) and ".venv" not in str(f) and "venv" not in str(f)
+    ]
+
+    if not python_files:
+        print("No Python files found to check.")
+        return
+
+    print(f"Found {len(python_files)} Python file(s)")
+    print()
+
+    # Run basic checks
+    try:
+        import subprocess
+
+        # Check Black formatting
+        print("Checking code formatting (Black)...")
+        result = subprocess.run(
+            ["black", "--check", "--diff", str(target_dir)],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode != 0:
+            issues.append("Code formatting issues (run: black .)")
+            if detailed:
+                print(result.stdout)
+
+        # Check import sorting
+        print("Checking import sorting (isort)...")
+        result = subprocess.run(
+            ["isort", "--check-only", "--diff", str(target_dir)],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode != 0:
+            issues.append("Import sorting issues (run: isort .)")
+            if detailed:
+                print(result.stdout)
+
+        # Check with flake8
+        print("Checking code quality (flake8)...")
+        result = subprocess.run(
+            ["flake8", str(target_dir)],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode != 0:
+            issues.append("Code quality issues (run: flake8 .)")
+            if detailed and result.stdout:
+                print(result.stdout[:500])  # Limit output
+
+    except FileNotFoundError as e:
+        print(f"Warning: Required tool not found: {e}")
+        print("Install with: pip install black isort flake8")
+        return
+
+    # Summary
+    print()
+    print("=" * 50)
+    if not issues:
+        print("✅ Code appears to be compliant!")
+        print("\nAll checks passed. Your code follows the standards.")
+    else:
+        print(f"⚠️  Found {len(issues)} compliance issue(s):")
+        for issue in issues:
+            print(f"  - {issue}")
+        print("\nRun 'ai-coding-standards fix-compliance' to auto-fix some issues.")
+
+    if report:
+        print(f"\nReport saved to: {report}")
+        # In a full implementation, generate HTML report
+
+
 def show_info() -> None:
     """Show information about the coding standards package."""
     print("AI Coding Standards")
@@ -261,6 +359,41 @@ def main() -> None:
         help="Install Cursor IDE rules (.cursorrules and .cursor/rules/)",
     )
 
+    # Check compliance command
+    check_parser = subparsers.add_parser(
+        "check-compliance", help="Check code compliance with standards"
+    )
+    check_parser.add_argument(
+        "target",
+        nargs="?",
+        default=".",
+        help="Target directory to check (default: current directory)",
+    )
+    check_parser.add_argument(
+        "--detailed",
+        action="store_true",
+        help="Show detailed compliance information",
+    )
+    check_parser.add_argument(
+        "--report",
+        type=str,
+        help="Path to save HTML compliance report",
+    )
+
+    # Fix compliance command
+    fix_parser = subparsers.add_parser("fix-compliance", help="Automatically fix compliance issues")
+    fix_parser.add_argument(
+        "target",
+        nargs="?",
+        default=".",
+        help="Target directory to fix (default: current directory)",
+    )
+    fix_parser.add_argument(
+        "--check-only",
+        action="store_true",
+        help="Only check what would be fixed, don't make changes",
+    )
+
     # Info command
     subparsers.add_parser("info", help="Show package information")
 
@@ -282,6 +415,49 @@ def main() -> None:
 
         if args.cursor:
             install_cursor_rules(target, overwrite=args.overwrite)
+
+    elif args.command == "check-compliance":
+        check_compliance(
+            Path(args.target),
+            detailed=args.detailed,
+            report=args.report,
+        )
+
+    elif args.command == "fix-compliance":
+        target = Path(args.target).resolve()
+        print("Fixing compliance issues...")
+        print("=" * 50)
+
+        try:
+            import subprocess
+
+            if args.check_only:
+                print("(Check-only mode - no changes will be made)")
+
+            # Format with Black
+            print("Formatting code with Black...")
+            cmd = ["black", str(target)]
+            if args.check_only:
+                cmd.append("--check")
+            subprocess.run(cmd, check=False)
+
+            # Sort imports
+            print("Sorting imports with isort...")
+            cmd = ["isort", str(target)]
+            if args.check_only:
+                cmd.append("--check-only")
+            subprocess.run(cmd, check=False)
+
+            if not args.check_only:
+                print("\n✅ Auto-fixable issues have been fixed!")
+                print("Run 'ai-coding-standards check-compliance' to see remaining issues.")
+            else:
+                print("\n(Check-only mode - no changes made)")
+
+        except FileNotFoundError:
+            print("Error: Required tools not found.")
+            print("Install with: pip install black isort")
+            sys.exit(1)
 
     elif args.command == "info":
         show_info()
