@@ -118,6 +118,20 @@ def get_config_files() -> List[Path]:
         file_path = _get_package_data_path(file_name)
         if file_path and file_path.exists():
             found_files.append(file_path)
+        else:
+            # Debug: try to find where the package is installed
+            try:
+                import importlib.util
+                spec = importlib.util.find_spec("ai_coding_standards")
+                if spec and spec.origin:
+                    pkg_dir = Path(spec.origin).parent
+                    # Try data directory
+                    data_file = pkg_dir / "data" / file_name
+                    if data_file.exists():
+                        found_files.append(data_file)
+                        continue
+            except Exception:
+                pass
     
     return found_files
 
