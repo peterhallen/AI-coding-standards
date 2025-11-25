@@ -38,31 +38,38 @@ def _get_package_data_path(file_path: str) -> Optional[Path]:
             return potential_path
     
     # Then try package data directory (when installed)
+    # Try multiple methods to find the package location
     try:
-        if hasattr(pkg_resources, "files"):
-            pkg = pkg_resources.files("ai_coding_standards")
-            # Try in data/ subdirectory first (installed package)
-            data_path = pkg / "data" / file_path
-            try:
-                if data_path.is_file():
-                    # For installed packages, we need to extract or use the path directly
-                    # Try to get the actual file path
-                    import os
-                    # Use as_path() if available (Python 3.9+)
-                    if hasattr(data_path, "as_path"):
-                        return data_path.as_path()
-                    # Otherwise, construct path from the package location
-                    import site
-                    for site_packages in site.getsitepackages():
-                        pkg_dir = Path(site_packages) / "ai_coding_standards" / "data" / file_path
-                        if pkg_dir.exists():
-                            return pkg_dir
-            except Exception:
-                pass
+        import importlib.util
+        spec = importlib.util.find_spec("ai_coding_standards")
+        if spec and spec.origin:
+            pkg_dir = Path(spec.origin).parent
+            data_path = pkg_dir / "data" / file_path
+            if data_path.exists():
+                return data_path
     except Exception:
         pass
     
-    # Fallback: try path() API
+    # Try using importlib.resources
+    try:
+        if hasattr(pkg_resources, "files"):
+            pkg = pkg_resources.files("ai_coding_standards")
+            data_path = pkg / "data" / file_path
+            if data_path.is_file():
+                # Try to get actual path
+                try:
+                    return data_path.as_path()
+                except AttributeError:
+                    # Fallback: read and write to temp file
+                    import tempfile
+                    temp_file = Path(tempfile.gettempdir()) / f"ai_coding_standards_{Path(file_path).name}"
+                    if not temp_file.exists():
+                        temp_file.write_bytes(data_path.read_bytes())
+                    return temp_file
+    except Exception:
+        pass
+    
+    # Fallback: try pkg_resources.path()
     try:
         with pkg_resources.path("ai_coding_standards.data", file_path) as p:
             return Path(p)
