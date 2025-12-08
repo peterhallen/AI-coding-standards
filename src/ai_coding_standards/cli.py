@@ -170,6 +170,7 @@ def get_documentation_files() -> List[Path]:
         "AI_PROMPT_STANDARDS_QUICK_REF.md",
         "MARKDOWN_STANDARDS.md",
         "MARKDOWN_STANDARDS_QUICK_REF.md",
+        "AI_COLLABORATION_GUIDE.md",
     ]
     
     found_files = []

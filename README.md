@@ -113,6 +113,15 @@ This document helps developers write better prompts that lead to higher quality 
 
 - **[MARKDOWN_STANDARDS_QUICK_REF.md](MARKDOWN_STANDARDS_QUICK_REF.md)** - One-page quick reference for documentation standards
 
+### Team Collaboration
+
+- **[AI_COLLABORATION_GUIDE.md](AI_COLLABORATION_GUIDE.md)** - Guide for teams using AI assistants together:
+  - Achieving consistency across multiple developers
+  - Shared rules and prompt templates
+  - Code review practices for AI-generated code
+  - Workflow best practices
+  - Troubleshooting inconsistencies
+
 ## 🛠️ Tooling Configuration
 
 This repository includes pre-configured settings for:
