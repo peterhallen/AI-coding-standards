@@ -168,6 +168,8 @@ def get_documentation_files() -> List[Path]:
         "CODING_STANDARDS_QUICK_REF.md",
         "AI_PROMPT_STANDARDS.md",
         "AI_PROMPT_STANDARDS_QUICK_REF.md",
+        "MARKDOWN_STANDARDS.md",
+        "MARKDOWN_STANDARDS_QUICK_REF.md",
     ]
     
     found_files = []
@@ -198,6 +200,7 @@ def install_cursor_rules(target_dir: Path, overwrite: bool = False) -> None:
         "naming_conventions.mdc",
         "testing_standards.mdc",
         "code_organization.mdc",
+        "markdown_standards.mdc",
     ]
     
     rule_files = []

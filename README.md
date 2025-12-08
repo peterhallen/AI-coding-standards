@@ -100,6 +100,19 @@ See [INSTALLATION.md](INSTALLATION.md) for detailed OS-specific instructions.
 
 This document helps developers write better prompts that lead to higher quality AI-generated code.
 
+### Markdown Documentation Standards
+
+- **[MARKDOWN_STANDARDS.md](MARKDOWN_STANDARDS.md)** - Comprehensive guide for writing consistent Markdown documentation:
+  - Document structure and templates
+  - Heading hierarchy and formatting
+  - Code blocks and syntax highlighting
+  - Tables, lists, and callouts
+  - Link and image guidelines
+  - Emoji usage conventions
+  - Accessibility best practices
+
+- **[MARKDOWN_STANDARDS_QUICK_REF.md](MARKDOWN_STANDARDS_QUICK_REF.md)** - One-page quick reference for documentation standards
+
 ## 🛠️ Tooling Configuration
 
 This repository includes pre-configured settings for:
