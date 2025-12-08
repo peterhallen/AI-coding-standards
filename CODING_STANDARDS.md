@@ -1113,7 +1113,7 @@ Use this checklist when reviewing code (human or AI-generated):
 - [ ] No code duplication
 - [ ] Single responsibility principle followed
 
-### Documentation
+### Code Documentation
 - [ ] All public functions have docstrings
 - [ ] Type hints are present and correct
 - [ ] Complex logic is commented
@@ -1136,6 +1136,17 @@ Use this checklist when reviewing code (human or AI-generated):
 - [ ] Module/class length is within limits
 - [ ] Dependencies are justified
 - [ ] No unused imports or code
+
+### Markdown Documentation (for `.md` files)
+- [ ] Single H1 title at document top
+- [ ] Table of contents for documents with 3+ sections
+- [ ] Sequential heading hierarchy (no skipped levels)
+- [ ] Horizontal rules (`---`) between H2 sections only
+- [ ] Code blocks have language specified
+- [ ] Links use descriptive text (not "click here")
+- [ ] Images have alt text
+- [ ] Consistent emoji usage (headers/callouts only)
+- [ ] Last Updated footer for versioned documents
 
 ---
 

@@ -2,6 +2,19 @@
 
 This guide helps you bring existing code (legacy code, imported code, or new codebases) into compliance with the AI Coding Standards.
 
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Quick Start](#quick-start)
+3. [Step-by-Step Compliance Process](#step-by-step-compliance-process)
+4. [Migration Strategies](#migration-strategies)
+5. [Tools and Automation](#tools-and-automation)
+6. [Common Scenarios](#common-scenarios)
+7. [Compliance Checklist](#compliance-checklist)
+8. [Getting Help](#getting-help)
+
+---
+
 ## Overview
 
 When bringing code into compliance, we follow a systematic approach:
@@ -574,4 +587,9 @@ Use this checklist when bringing code into compliance:
 ---
 
 **Remember**: Compliance is a journey, not a destination. Focus on continuous improvement!
+
+---
+
+**Last Updated**: 2025-12-08  
+**Version**: 1.0.0
 

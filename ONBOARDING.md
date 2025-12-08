@@ -2,6 +2,18 @@
 
 Welcome! This guide gets you set up with the AI Coding Standards in 5 minutes.
 
+## Table of Contents
+
+1. [Quick Setup](#quick-setup)
+2. [Key Standards to Know](#key-standards-to-know)
+3. [Daily Workflow](#daily-workflow)
+4. [IDE Setup](#ide-setup)
+5. [Documentation](#documentation)
+6. [Checklist](#checklist)
+7. [Common Questions](#common-questions)
+
+---
+
 ## Quick Setup
 
 ### 1. Install Python & Package
@@ -178,3 +190,8 @@ A: Only if the logic is non-obvious.
 ---
 
 **Questions?** Check the documentation above or ask your team lead.
+
+---
+
+**Last Updated**: 2025-12-08  
+**Version**: 1.0.0

@@ -35,7 +35,7 @@
 
 ## Code Organization
 
-```
+```text
 module/
 ├── Module docstring
 ├── Standard library imports
@@ -159,6 +159,16 @@ for item in data:
 - [ ] Follows naming conventions
 - [ ] No code duplication
 - [ ] Imports organized correctly
+
+## Markdown Documentation Checklist
+
+- [ ] Single H1 title
+- [ ] Table of contents (if 3+ sections)
+- [ ] No skipped heading levels
+- [ ] `---` between H2 sections only
+- [ ] Code blocks have language
+- [ ] Descriptive link text
+- [ ] Last Updated footer
 
 ---
 

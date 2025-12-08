@@ -365,3 +365,8 @@ Install Git first:
 1. **Read the standards**: [CODING_STANDARDS_QUICK_REF.md](CODING_STANDARDS_QUICK_REF.md)
 2. **Set up your IDE**: [CURSOR_SETUP.md](CURSOR_SETUP.md)
 3. **New to the team?**: [ONBOARDING.md](ONBOARDING.md)
+
+---
+
+**Last Updated**: 2025-12-08  
+**Version**: 1.0.0

@@ -2,6 +2,19 @@
 
 Set up Cursor IDE to automatically follow your coding standards.
 
+## Table of Contents
+
+1. [Quick Setup](#quick-setup)
+2. [How It Works](#how-it-works)
+3. [Rule Files Included](#rule-files-included)
+4. [Testing the Setup](#testing-the-setup)
+5. [Customizing Rules](#customizing-rules)
+6. [Global Rules](#global-rules-optional)
+7. [Troubleshooting](#troubleshooting)
+8. [Other AI IDEs](#other-ai-ides)
+
+---
+
 ## Quick Setup
 
 ```bash
@@ -119,3 +132,8 @@ It should reference the standards from your `.cursorrules` file.
 ---
 
 See [CODING_STANDARDS.md](CODING_STANDARDS.md) for the full standards.
+
+---
+
+**Last Updated**: 2025-12-08  
+**Version**: 1.0.0

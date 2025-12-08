@@ -73,8 +73,13 @@ pytest --version
 
 ## Summary
 
-**Total files the CLI can install: 16**
+**Total files the CLI can install: 18**
 
 - Configuration files: 6
-- Cursor rules: 6
-- Documentation files: 4
+- Cursor rules: 7
+- Documentation files: 6
+
+---
+
+**Last Updated**: 2025-12-08  
+**Version**: 1.0.0

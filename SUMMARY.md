@@ -1,5 +1,17 @@
 # Package Installation Summary
 
+## Table of Contents
+
+1. [What Has Been Created](#what-has-been-created)
+2. [Installation Methods](#installation-methods)
+3. [What Gets Installed](#what-gets-installed)
+4. [Benefits](#benefits)
+5. [Next Steps](#next-steps)
+6. [File Structure](#file-structure)
+7. [AI Prompt Standards Highlights](#ai-prompt-standards-highlights)
+
+---
+
 ## What Has Been Created
 
 ### 1. Installable Python Package
@@ -99,7 +111,7 @@ dev = [
 
 ## File Structure
 
-```
+```text
 AI-coding-standards/
 ├── src/
 │   └── ai_coding_standards/
@@ -130,4 +142,9 @@ The new AI Prompt Standards document covers:
 8. **Templates** - Reusable prompt templates
 
 This helps developers write better prompts that lead to higher quality AI-generated code.
+
+---
+
+**Last Updated**: 2025-12-08  
+**Version**: 1.0.0
 

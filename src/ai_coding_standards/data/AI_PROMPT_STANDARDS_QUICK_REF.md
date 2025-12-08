@@ -4,7 +4,7 @@
 
 ## Prompt Structure
 
-```
+```text
 [Context]
 [Background information about project/codebase]
 
