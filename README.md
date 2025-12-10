@@ -5,6 +5,7 @@ A comprehensive set of coding standards and best practices designed for both hum
 ## 📋 Table of Contents
 
 - [Overview](#overview)
+- [Supported Languages](#supported-languages)
 - [Quick Start](#quick-start)
 - [Documentation](#documentation)
 - [Tooling Configuration](#tooling-configuration)
@@ -22,6 +23,12 @@ This repository contains:
 - **Tooling Configuration** - Pre-configured settings for Black, isort, mypy, pytest, flake8, and pylint
 - **Example Code** - Demonstrations of standards-compliant code
 - **CI/CD Integration** - GitHub Actions workflow for automated validation
+
+## 🌐 Supported Languages
+
+- **Python** (First-class support) - Full suite of caching, linting, formatting, and typing standards.
+- **JavaScript/TypeScript** - Standard configurations for ESLint, Prettier, and TypeScript.
+
 
 ## 🚀 Quick Start
 
@@ -45,6 +52,8 @@ pip install git+https://github.com/peterhallen/AI-coding-standards.git
 
 # 3. Install standards in your project
 ai-coding-standards install --cursor --docs --pre-commit
+# OR for JavaScript projects:
+# ai-coding-standards install --lang javascript
 ```
 
 ### What Gets Installed
@@ -201,6 +210,9 @@ ai-coding-standards install --overwrite --docs --pre-commit --cursor
 
 # Install with Antigravity IDE support
 ai-coding-standards install --antigravity
+
+# Install for JavaScript/TypeScript project
+ai-coding-standards install --lang javascript
 
 # Check code compliance
 ai-coding-standards check-compliance

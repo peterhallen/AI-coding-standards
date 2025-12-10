@@ -24,31 +24,34 @@ except ImportError:
 
 def _get_package_data_path(file_path: str) -> Optional[Path]:
     """Get path to a file in the package data.
-    
+
     Args:
         file_path: Relative path to file from package root (e.g., ".editorconfig")
-    
+
     Returns:
         Path to file if found, None otherwise
     """
     # First, try to determine if we're in an installed package or development mode
     is_installed = False
     installed_pkg_dir = None
-    
+
     try:
         import importlib.util
+
         spec = importlib.util.find_spec("ai_coding_standards")
         if spec and spec.origin:
             installed_pkg_dir = Path(spec.origin).parent
             # Check if this is an installed package (not in our dev repo)
-            if "site-packages" in str(installed_pkg_dir) or "dist-packages" in str(installed_pkg_dir):
+            if "site-packages" in str(installed_pkg_dir) or "dist-packages" in str(
+                installed_pkg_dir
+            ):
                 is_installed = True
             # Also check if the data directory exists (indicates installed package structure)
             if (installed_pkg_dir / "data").exists():
                 is_installed = True
     except Exception:
         pass
-    
+
     # If installed, prioritize installed package location
     if is_installed and installed_pkg_dir:
         data_path = installed_pkg_dir / "data" / file_path
@@ -57,24 +60,27 @@ def _get_package_data_path(file_path: str) -> Optional[Path]:
         # Also try pkg_resources methods for installed packages
         try:
             import pkg_resources as old_pkg_resources
-            resource_path = old_pkg_resources.resource_filename("ai_coding_standards", f"data/{file_path}")
+
+            resource_path = old_pkg_resources.resource_filename(
+                "ai_coding_standards", f"data/{file_path}"
+            )
             if Path(resource_path).exists():
                 return Path(resource_path)
         except Exception:
             pass
-    
+
     # Then try development mode (files in repo root)
     for base_path in [PACKAGE_ROOT, PACKAGE_ROOT.parent]:
         potential_path = base_path / file_path
         if potential_path.exists():
             return potential_path
-    
+
     # Fallback: try package data directory even if not detected as installed
     if installed_pkg_dir:
         data_path = installed_pkg_dir / "data" / file_path
         if data_path.exists():
             return data_path
-    
+
     # Method 2: Use importlib.resources (Python 3.9+)
     try:
         if hasattr(pkg_resources, "files"):
@@ -86,23 +92,30 @@ def _get_package_data_path(file_path: str) -> Optional[Path]:
                     return data_path.as_path()
                 except (AttributeError, TypeError):
                     # Fallback: read and write to temp file
-                    import tempfile
                     import hashlib
+                    import tempfile
+
                     # Create unique temp file name
                     file_hash = hashlib.md5(str(file_path).encode()).hexdigest()[:8]
-                    temp_file = Path(tempfile.gettempdir()) / f"ai_coding_standards_{file_hash}_{Path(file_path).name}"
+                    temp_file = (
+                        Path(tempfile.gettempdir())
+                        / f"ai_coding_standards_{file_hash}_{Path(file_path).name}"
+                    )
                     if not temp_file.exists():
                         temp_file.write_bytes(data_path.read_bytes())
                     return temp_file
     except Exception:
         pass
-    
+
     # Method 3: Try pkg_resources.resource_filename (most reliable for installed packages)
     try:
         import pkg_resources as old_pkg_resources
+
         # Try data/ subdirectory
         try:
-            resource_path = old_pkg_resources.resource_filename("ai_coding_standards", f"data/{file_path}")
+            resource_path = old_pkg_resources.resource_filename(
+                "ai_coding_standards", f"data/{file_path}"
+            )
             if Path(resource_path).exists():
                 return Path(resource_path)
         except Exception:
@@ -116,15 +129,59 @@ def _get_package_data_path(file_path: str) -> Optional[Path]:
             pass
     except Exception:
         pass
-    
+
     # Method 4: Try pkg_resources.path()
     try:
         with pkg_resources.path("ai_coding_standards.data", file_path) as p:
             return Path(p)
     except Exception:
         pass
-    
+
     return None
+
+
+def install_js_configs(target_dir: Path, overwrite: bool = False, interactive: bool = True) -> None:
+    """Install JS configuration files to target directory.
+
+    Args:
+        target_dir: Directory where configs should be installed
+        overwrite: Whether to overwrite existing files
+        interactive: Whether to prompt before overwriting
+    """
+    target_dir = Path(target_dir).resolve()
+
+    if not target_dir.exists():
+        print(f"Error: Target directory does not exist: {target_dir}")
+        sys.exit(1)
+
+    config_files = get_js_config_files()
+    installed = []
+    skipped = []
+
+    for config_file in config_files:
+        # Remove 'javascript/' prefix for target
+        target_name = config_file.name
+        target_path = target_dir / target_name
+
+        if target_path.exists() and not overwrite:
+            if interactive:
+                response = input(f"{target_name} already exists. Overwrite? [y/N]: ")
+                if response.lower() != "y":
+                    skipped.append(target_name)
+                    continue
+            else:
+                skipped.append(target_name)
+                continue
+
+        shutil.copy2(config_file, target_path)
+        installed.append(target_name)
+        print(f"✓ Installed {target_name}")
+
+    if installed:
+        print(f"\\n✓ Installed {len(installed)} JS configuration file(s)")
+
+    if skipped:
+        print(f"\\n⊘ Skipped {len(skipped)} existing file(s) (use --overwrite to replace)")
 
 
 def get_config_files() -> List[Path]:
@@ -137,27 +194,24 @@ def get_config_files() -> List[Path]:
         ".pre-commit-config.yaml",
         ".cursorrules",
     ]
-    
+
+    return [_get_package_data_path(f) for f in config_files if _get_package_data_path(f)]
+
+
+def get_js_config_files() -> List[Path]:
+    """Get list of JS configuration files to install."""
+    config_files = [
+        "javascript/.eslintrc.json",
+        "javascript/.prettierrc.json",
+        "javascript/tsconfig.json",
+    ]
+
     found_files = []
-    for file_name in config_files:
-        file_path = _get_package_data_path(file_name)
-        if file_path and file_path.exists():
-            found_files.append(file_path)
-        else:
-            # Debug: try to find where the package is installed
-            try:
-                import importlib.util
-                spec = importlib.util.find_spec("ai_coding_standards")
-                if spec and spec.origin:
-                    pkg_dir = Path(spec.origin).parent
-                    # Try data directory
-                    data_file = pkg_dir / "data" / file_name
-                    if data_file.exists():
-                        found_files.append(data_file)
-                        continue
-            except Exception:
-                pass
-    
+    for file_path in config_files:
+        path = _get_package_data_path(file_path)
+        if path and path.exists():
+            found_files.append(path)
+
     return found_files
 
 
@@ -172,13 +226,13 @@ def get_documentation_files() -> List[Path]:
         "MARKDOWN_STANDARDS_QUICK_REF.md",
         "AI_COLLABORATION_GUIDE.md",
     ]
-    
+
     found_files = []
     for file_name in doc_files:
         file_path = _get_package_data_path(file_name)
         if file_path and file_path.exists():
             found_files.append(file_path)
-    
+
     return found_files
 
 
@@ -203,21 +257,22 @@ def install_cursor_rules(target_dir: Path, overwrite: bool = False) -> None:
         "code_organization.mdc",
         "markdown_standards.mdc",
     ]
-    
+
     rule_files = []
-    
+
     # Try development mode first (files in repo)
     for base_path in [PACKAGE_ROOT, PACKAGE_ROOT.parent]:
         potential_dir = base_path / ".cursor" / "rules"
         if potential_dir.exists():
             rule_files = list(potential_dir.glob("*.mdc"))
             break
-    
+
     # If not found, try package data
     if not rule_files:
         # Try to find the package data directory
         try:
             import importlib.util
+
             spec = importlib.util.find_spec("ai_coding_standards")
             if spec and spec.origin:
                 pkg_dir = Path(spec.origin).parent
@@ -226,7 +281,7 @@ def install_cursor_rules(target_dir: Path, overwrite: bool = False) -> None:
                     rule_files = list(rules_dir.glob("*.mdc"))
         except Exception:
             pass
-        
+
         # If still not found, try individual files
         if not rule_files:
             for rule_name in rule_file_names:
@@ -240,7 +295,7 @@ def install_cursor_rules(target_dir: Path, overwrite: bool = False) -> None:
                     if rule_path and rule_path.exists():
                         rule_files.append(rule_path)
                         break
-    
+
     if not rule_files:
         print("Warning: Cursor rules directory not found in package")
         return
@@ -283,21 +338,22 @@ def install_antigravity_rules(target_dir: Path, overwrite: bool = False) -> None
         "code_organization.mdc",
         "markdown_standards.mdc",
     ]
-    
+
     rule_files = []
-    
+
     # Try development mode first (files in repo)
     for base_path in [PACKAGE_ROOT, PACKAGE_ROOT.parent]:
         potential_dir = base_path / ".cursor" / "rules"
         if potential_dir.exists():
             rule_files = list(potential_dir.glob("*.mdc"))
             break
-    
+
     # If not found, try package data
     if not rule_files:
         # Try to find the package data directory
         try:
             import importlib.util
+
             spec = importlib.util.find_spec("ai_coding_standards")
             if spec and spec.origin:
                 pkg_dir = Path(spec.origin).parent
@@ -306,7 +362,7 @@ def install_antigravity_rules(target_dir: Path, overwrite: bool = False) -> None
                     rule_files = list(rules_dir.glob("*.mdc"))
         except Exception:
             pass
-        
+
         # If still not found, try individual files
         if not rule_files:
             for rule_name in rule_file_names:
@@ -320,7 +376,7 @@ def install_antigravity_rules(target_dir: Path, overwrite: bool = False) -> None
                     if rule_path and rule_path.exists():
                         rule_files.append(rule_path)
                         break
-    
+
     if not rule_files:
         print("Warning: Antigravity rules not found in package (checked Cursor rules locations)")
         return
@@ -337,7 +393,9 @@ def install_antigravity_rules(target_dir: Path, overwrite: bool = False) -> None
         print(f"✓ Installed Antigravity rule: {rule_file.name}")
 
     if installed:
-        print(f"\\n✓ Installed {len(installed)} Antigravity rule file(s) to {antigravity_rules_dir}")
+        print(
+            f"\\n✓ Installed {len(installed)} Antigravity rule file(s) to {antigravity_rules_dir}"
+        )
     else:
         print("No Antigravity rules to install")
 
@@ -532,6 +590,60 @@ def check_compliance(
         print("Install with: pip install black isort flake8")
         return
 
+    # Check for JS/TS files
+    js_files = (
+        list(target_dir.rglob("*.js"))
+        + list(target_dir.rglob("*.ts"))
+        + list(target_dir.rglob("*.jsx"))
+        + list(target_dir.rglob("*.tsx"))
+    )
+    js_files = [
+        f
+        for f in js_files
+        if "node_modules" not in str(f) and "dist" not in str(f) and "build" not in str(f)
+    ]
+
+    if js_files:
+        print(f"Found {len(js_files)} JavaScript/TypeScript file(s)")
+        print()
+
+        # Check Prettier
+        try:
+            print("Checking code formatting (Prettier)...")
+            # Try running via npx
+            cmd = ["npx", "prettier", "--check", "."]
+            if sys.platform == "win32":
+                cmd = ["npx.cmd", "prettier", "--check", "."]
+
+            result = subprocess.run(
+                cmd, cwd=target_dir, capture_output=True, text=True, check=False
+            )
+            if result.returncode != 0:
+                issues.append("Code formatting issues (run: npx prettier --write .)")
+                if detailed:
+                    print(result.stdout)
+                    print(result.stderr)
+        except Exception as e:
+            print(f"Warning: Could not run Prettier: {e}")
+
+        # Check ESLint
+        try:
+            print("Checking code quality (ESLint)...")
+            cmd = ["npx", "eslint", "."]
+            if sys.platform == "win32":
+                cmd = ["npx.cmd", "eslint", "."]
+
+            result = subprocess.run(
+                cmd, cwd=target_dir, capture_output=True, text=True, check=False
+            )
+            if result.returncode != 0:
+                issues.append("Code quality issues (run: npx eslint . --fix)")
+                if detailed:
+                    print(result.stdout)
+                    print(result.stderr)
+        except Exception as e:
+            print(f"Warning: Could not run ESLint: {e}")
+
     # Summary
     print()
     print("=" * 50)
@@ -542,7 +654,9 @@ def check_compliance(
         print(f"⚠️  Found {len(issues)} compliance issue(s):")
         for issue in issues:
             print(f"  - {issue}")
-        print("\nRun 'ai-coding-standards fix-compliance' to auto-fix some issues.")
+        print(
+            "\nRun 'ai-coding-standards fix-compliance' (or 'npx prettier --write .') to auto-fix some issues."
+        )
 
     if report:
         print(f"\nReport saved to: {report}")
@@ -609,7 +723,12 @@ def main() -> None:
         action="store_true",
         help="Install Antigravity rules (.antigravity/rules/)",
     )
-
+    install_parser.add_argument(
+        "--lang",
+        choices=["python", "javascript", "auto"],
+        default="auto",
+        help="Language to install standards for (default: auto-detect)",
+    )
 
     # Check compliance command
     check_parser = subparsers.add_parser(
@@ -648,7 +767,7 @@ def main() -> None:
 
     # Info command
     subparsers.add_parser("info", help="Show package information")
-    
+
     # Debug command
     subparsers.add_parser("debug-paths", help="Debug package data paths (for troubleshooting)")
 
@@ -656,11 +775,39 @@ def main() -> None:
 
     if args.command == "install":
         target = Path(args.target).resolve()
-        install_configs(
-            target,
-            overwrite=args.overwrite,
-            interactive=not args.no_interactive,
-        )
+
+        # Determine language
+        install_python = False
+        install_js = False
+
+        if args.lang == "python":
+            install_python = True
+        elif args.lang == "javascript":
+            install_js = True
+        else:  # auto
+            # Simple auto-detection
+            if (target / "package.json").exists():
+                install_js = True
+            if (target / "pyproject.toml").exists() or list(target.glob("*.py")):
+                install_python = True
+
+            # Default to Python if nothing detected
+            if not install_js and not install_python:
+                install_python = True
+
+        if install_python:
+            install_configs(
+                target,
+                overwrite=args.overwrite,
+                interactive=not args.no_interactive,
+            )
+
+        if install_js:
+            install_js_configs(
+                target,
+                overwrite=args.overwrite,
+                interactive=not args.no_interactive,
+            )
 
         if args.docs:
             install_docs(target, overwrite=args.overwrite)
@@ -722,11 +869,12 @@ def main() -> None:
 
     elif args.command == "info":
         show_info()
-    
+
     elif args.command == "debug-paths":
         from ai_coding_standards.debug_paths import main as debug_main
+
         debug_main()
-    
+
     else:
         parser.print_help()
 

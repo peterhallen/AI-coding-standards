@@ -4,11 +4,28 @@ Choose your operating system for step-by-step installation instructions.
 
 ## Table of Contents
 
+- [Supported Languages](#supported-languages)
 - [Windows](#windows)
 - [macOS](#macos)
 - [Linux / WSL](#linux--wsl)
 - [After Installation](#after-installation)
 - [Troubleshooting](#troubleshooting)
+
+---
+
+## 🌐 Supported Languages
+
+You can install coding standards for:
+
+1.  **Python** (default):
+    ```bash
+    ai-coding-standards install
+    ```
+
+2.  **JavaScript / TypeScript**:
+    ```bash
+    ai-coding-standards install --lang javascript
+    ```
 
 ---
 
@@ -237,6 +254,10 @@ The `ai-coding-standards install` command creates these files in your project:
 | `.cursor/rules/*.mdc` | Detailed Cursor rules (with `--cursor`) |
 | `.antigravity/rules/*.mdc` | Detailed Antigravity rules (with `--antigravity`) |
 | `docs/standards/*.md` | Documentation files (with `--docs`) |
+| **JavaScript Files** | (with `--lang javascript`) |
+| `.eslintrc.json` | ESLint configuration |
+| `.prettierrc.json` | Prettier configuration |
+| `tsconfig.json` | TypeScript configuration |
 
 ### Verify Installation
 
@@ -304,6 +325,7 @@ ai-coding-standards fix-compliance
 | `--pre-commit` | Set up pre-commit hooks |
 | `--cursor` | Install Cursor IDE rules |
 | `--antigravity` | Install Antigravity IDE rules |
+| `--lang` | Specify language: `python` (default), `javascript`, or `auto` |
 
 ---
 
