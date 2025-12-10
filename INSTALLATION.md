@@ -4,11 +4,28 @@ Choose your operating system for step-by-step installation instructions.
 
 ## Table of Contents
 
+- [Supported Languages](#supported-languages)
 - [Windows](#windows)
 - [macOS](#macos)
 - [Linux / WSL](#linux--wsl)
 - [After Installation](#after-installation)
 - [Troubleshooting](#troubleshooting)
+
+---
+
+## 🌐 Supported Languages
+
+You can install coding standards for:
+
+1.  **Python** (default):
+    ```bash
+    ai-coding-standards install
+    ```
+
+2.  **JavaScript / TypeScript**:
+    ```bash
+    ai-coding-standards install --lang javascript
+    ```
 
 ---
 

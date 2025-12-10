@@ -5,6 +5,7 @@ A comprehensive set of coding standards and best practices designed for both hum
 ## 📋 Table of Contents
 
 - [Overview](#overview)
+- [Supported Languages](#supported-languages)
 - [Quick Start](#quick-start)
 - [Documentation](#documentation)
 - [Tooling Configuration](#tooling-configuration)
@@ -22,6 +23,12 @@ This repository contains:
 - **Tooling Configuration** - Pre-configured settings for Black, isort, mypy, pytest, flake8, and pylint
 - **Example Code** - Demonstrations of standards-compliant code
 - **CI/CD Integration** - GitHub Actions workflow for automated validation
+
+## 🌐 Supported Languages
+
+- **Python** (First-class support) - Full suite of caching, linting, formatting, and typing standards.
+- **JavaScript/TypeScript** - Standard configurations for ESLint, Prettier, and TypeScript.
+
 
 ## 🚀 Quick Start
 
