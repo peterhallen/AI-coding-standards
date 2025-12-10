@@ -511,7 +511,7 @@ def install_docs(target_dir: Path, overwrite: bool = False) -> None:
     """
     target_dir = Path(target_dir).resolve()
     docs_base_dir = target_dir / "docs"
-    
+
     # Create subdirectories
     (docs_base_dir / "standards").mkdir(parents=True, exist_ok=True)
     (docs_base_dir / "guides").mkdir(parents=True, exist_ok=True)
@@ -522,7 +522,7 @@ def install_docs(target_dir: Path, overwrite: bool = False) -> None:
     for rel_path in doc_files_rel:
         # Find the source file using the relative path
         source_path = _get_package_data_path(rel_path)
-        
+
         if not source_path or not source_path.exists():
             print(f"Warning: Could not find documentation file: {rel_path}")
             continue
@@ -530,7 +530,7 @@ def install_docs(target_dir: Path, overwrite: bool = False) -> None:
         # Determine target path maintaining structure (standards/ or guides/)
         # rel_path is like "docs/standards/FILE.md"
         # We want target to be "target_dir/docs/standards/FILE.md"
-        
+
         # Strip "docs/" from the start to get "standards/FILE.md" or "guides/FILE.md"
         sub_path = Path(rel_path).name
         if "standards/" in rel_path:
@@ -539,7 +539,7 @@ def install_docs(target_dir: Path, overwrite: bool = False) -> None:
             target_subdir = "guides"
         else:
             target_subdir = ""
-            
+
         target_file_path = docs_base_dir / target_subdir / sub_path
 
         if target_file_path.exists() and not overwrite:
