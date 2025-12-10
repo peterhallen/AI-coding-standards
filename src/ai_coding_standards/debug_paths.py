@@ -13,6 +13,7 @@ def main() -> None:
     # Check if package is installed
     try:
         import importlib.util
+
         spec = importlib.util.find_spec("ai_coding_standards")
         if spec and spec.origin:
             pkg_dir = Path(spec.origin).parent
@@ -44,6 +45,7 @@ def main() -> None:
     except Exception as e:
         print(f"Error: {e}")
         import traceback
+
         traceback.print_exc()
 
     # Try pkg_resources
@@ -51,6 +53,7 @@ def main() -> None:
     print("Testing pkg_resources:")
     try:
         import pkg_resources
+
         try:
             path = pkg_resources.resource_filename("ai_coding_standards", "data/.editorconfig")
             print(f"  resource_filename: {path}")
@@ -65,6 +68,7 @@ def main() -> None:
     print("Testing importlib.resources:")
     try:
         import importlib.resources as res
+
         try:
             pkg = res.files("ai_coding_standards")
             data = pkg / "data" / ".editorconfig"
@@ -80,6 +84,7 @@ def main() -> None:
         except Exception as e:
             print(f"  importlib.resources failed: {e}")
             import traceback
+
             traceback.print_exc()
     except ImportError:
         print("  importlib.resources not available")
