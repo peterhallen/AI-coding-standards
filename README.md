@@ -2,7 +2,7 @@
 
 A comprehensive set of coding standards and best practices designed for both human developers and AI coding assistants. This repository provides guidelines, tooling configuration, and examples to ensure consistency, readability, maintainability, and performance across Python codebases.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Supported Languages](#supported-languages)
@@ -11,6 +11,7 @@ A comprehensive set of coding standards and best practices designed for both hum
 - [Tooling Configuration](#tooling-configuration)
 - [Standards Summary](#standards-summary)
 - [Examples](#examples)
+- [CLI Tool](#cli-tool)
 - [Contributing](#contributing)
 - [License](#license)
 
