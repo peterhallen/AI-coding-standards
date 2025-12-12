@@ -8,7 +8,7 @@ version = "1.0.0"
 description = "Comprehensive coding standards and best practices for Python development with AI assistants"
 readme = "README.md"
 requires-python = ">=3.8"
-license = "MIT"
+license = { text = "MIT" }
 authors = [
     {name = "AI Coding Standards Team"}
 ]
