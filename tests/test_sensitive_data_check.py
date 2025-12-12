@@ -2,10 +2,11 @@
 import os
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import tempfile
 
-from ai_coding_standards.pre_commit.sensitive_data_check import check_file
+from ai_coding_standards.pre_commit.sensitive_data_check import check_file, main
 
 
 class TestSensitiveDataCheck(unittest.TestCase):
@@ -66,6 +67,38 @@ class TestSensitiveDataCheck(unittest.TestCase):
         content = "A0100. Facility Provider Numbers"
         path = self.create_file(content)
         self.assertTrue(check_file(path), "MDS code pattern A0100. should be detected")
+
+    def test_missing_file(self):
+        """Test handling of non-existent files."""
+        self.assertFalse(check_file("non_existent_file.txt"), "Missing file should return False")
+
+    def test_binary_file(self):
+        """Test handling of binary files."""
+        # Create a binary file
+        file_descriptor, path = tempfile.mkstemp(dir=self.root_path)
+        with os.fdopen(file_descriptor, "wb") as file_handle:
+            file_handle.write(b"\x80\x81\x82")  # Invalid UTF-8
+        self.assertFalse(check_file(path), "Binary file should return False")
+
+    def test_main_success(self):
+        """Test main function with clean file."""
+        # Create a clean file
+        path = self.create_file("clean content")
+
+        with patch("sys.argv", ["prog", path]):
+            with self.assertRaises(SystemExit) as context:
+                main()
+            self.assertEqual(context.exception.code, 0)
+
+    def test_main_failure(self):
+        """Test main function with sensitive file."""
+        # Create a sensitive file
+        path = self.create_file("Social Security Number")
+
+        with patch("sys.argv", ["prog", path]):
+            with self.assertRaises(SystemExit) as context:
+                main()
+            self.assertEqual(context.exception.code, 1)
 
 
 if __name__ == "__main__":
