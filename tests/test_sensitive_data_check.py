@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import tempfile
 
-from ai_coding_standards.pre_commit.sensitive_data_check import check_file, main
+from coding_standards.pre_commit.sensitive_data_check import check_file, main
 
 
 class TestSensitiveDataCheck(unittest.TestCase):

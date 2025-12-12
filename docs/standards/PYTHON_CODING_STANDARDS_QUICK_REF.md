@@ -1,6 +1,6 @@
 # Coding Standards - Quick Reference
 
-> One-page reference guide for coding standards. See `CODING_STANDARDS.md` for full documentation.
+> One-page reference guide for coding-standards. See `CODING_STANDARDS.md` for full documentation.
 
 ## Function Limits
 
@@ -173,5 +173,3 @@ for item in data:
 ---
 
 **Full Documentation**: See `CODING_STANDARDS.md` for comprehensive guidelines.
-
-

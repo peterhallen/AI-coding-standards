@@ -90,10 +90,10 @@ The hook is defined in `.pre-commit-config.yaml` under the `repo: local` section
   hooks:
     - id: check-sensitive-data
       name: check sensitive data
-      entry: python src/ai_coding_standards/pre_commit/sensitive_data_check.py
+      entry: python src/coding_standards/pre_commit/sensitive_data_check.py
       language: system
       types: [text]
-      exclude: ^(src/ai_coding_standards/pre_commit/sensitive_data_check\.py|tests/.*)$
+      exclude: ^(src/coding_standards/pre_commit/sensitive_data_check\.py|tests/.*)$
 ```
 
 ### Exclusions
@@ -102,7 +102,7 @@ Files in `tests/` and the script itself are excluded by default to allow for tes
 ## Development
 
 The detection logic is located in:
-`src/ai_coding_standards/pre_commit/sensitive_data_check.py`
+`src/coding_standards/pre_commit/sensitive_data_check.py`
 
 To add new patterns:
 1.  Open the script.

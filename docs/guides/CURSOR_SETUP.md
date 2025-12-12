@@ -19,11 +19,11 @@ Set up Cursor IDE to automatically follow your coding standards.
 
 ```bash
 # Install the package (see INSTALLATION.md for full setup)
-pip install git+https://github.com/peterhallen/AI-coding-standards.git
+pip install git+https://github.com/peterhallen/coding-standards.git
 
 # Install Cursor rules in your project
 cd your-project
-ai-coding-standards install --cursor
+coding-standards install --cursor
 ```
 
 This creates:
@@ -135,5 +135,5 @@ See [CODING_STANDARDS.md](CODING_STANDARDS.md) for the full standards.
 
 ---
 
-**Last Updated**: 2025-12-08  
+**Last Updated**: 2025-12-08
 **Version**: 1.0.0

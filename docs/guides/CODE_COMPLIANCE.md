@@ -33,13 +33,13 @@ Use the CLI tool to check compliance:
 
 ```bash
 # Check code compliance
-ai-coding-standards check-compliance /path/to/code
+coding-standards check-compliance /path/to/code
 
 # Check with detailed report
-ai-coding-standards check-compliance /path/to/code --detailed
+coding-standards check-compliance /path/to/code --detailed
 
 # Generate compliance report
-ai-coding-standards check-compliance /path/to/code --report compliance_report.html
+coding-standards check-compliance /path/to/code --report compliance_report.html
 ```
 
 ### Automated Fixes
@@ -68,10 +68,10 @@ Run compliance check to see what needs fixing:
 
 ```bash
 # Install compliance checker (if not already installed)
-pip install git+https://github.com/peterhallen/AI-coding-standards.git
+pip install git+https://github.com/peterhallen/coding-standards.git
 
 # Check compliance
-ai-coding-standards check-compliance .
+coding-standards check-compliance .
 ```
 
 This will identify:
@@ -135,20 +135,20 @@ Add docstrings systematically:
 ```python
 def function_name(param1: Type, param2: Type) -> ReturnType:
     """Brief description of what the function does.
-    
+
     More detailed description if needed. Explain the purpose,
     behavior, and any important details.
-    
+
     Args:
         param1: Description of param1
         param2: Description of param2
-    
+
     Returns:
         Description of return value
-    
+
     Raises:
         ExceptionType: When this exception is raised
-    
+
     Example:
         >>> result = function_name("value1", "value2")
         >>> print(result)
@@ -172,17 +172,17 @@ def process_user_data(user_data: Dict) -> Dict:
     if not user_data:
         raise ValueError("...")
     # ... more validation
-    
+
     # Transformation (20 lines)
     transformed = {}
     # ... transformation logic
-    
+
     # Database operations (20 lines)
     # ... database logic
-    
+
     # Response formatting (10 lines)
     # ... formatting logic
-    
+
     return result
 
 # After (split into helpers)
@@ -258,16 +258,16 @@ def process_user(user: User) -> str:
     """Process user based on status and permissions."""
     if not user:
         return "invalid"
-    
+
     if not user.is_active:
         return "inactive"
-    
+
     if not user.has_permission:
         return "no_permission"
-    
+
     if not user.subscription_valid:
         return "expired"
-    
+
     return "process"
 ```
 
@@ -289,7 +289,7 @@ def process_data(data: List[Dict]) -> None:
     """Process list of data items."""
     if not data:
         return
-    
+
     for item in data:
         _process_item(item)
 
@@ -590,6 +590,5 @@ Use this checklist when bringing code into compliance:
 
 ---
 
-**Last Updated**: 2025-12-08  
+**Last Updated**: 2025-12-08
 **Version**: 1.0.0
-

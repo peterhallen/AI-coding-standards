@@ -54,8 +54,8 @@ repos:
     hooks:
       - id: check-sensitive-data
         name: check sensitive data
-        entry: python src/ai_coding_standards/pre_commit/sensitive_data_check.py
+        entry: python src/coding_standards/pre_commit/sensitive_data_check.py
         language: system
         types: [text]
         files: \.(txt|md|py|json|xml|hl7)$
-        exclude: ^(src/ai_coding_standards/pre_commit/sensitive_data_check\.py|tests/.*|docs/standards/PYTHON_CODING_STANDARDS\.md|docs/guides/SENSITIVE_DATA_HOOK\.md|docs/tutorials/.*)$
+        exclude: ^(src/coding_standards/pre_commit/sensitive_data_check\.py|tests/.*|docs/standards/PYTHON_CODING_STANDARDS\.md|docs/guides/SENSITIVE_DATA_HOOK\.md|docs/tutorials/.*)$

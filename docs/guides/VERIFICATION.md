@@ -4,7 +4,7 @@ Quick reference for verifying the CLI installation worked correctly.
 
 ## Files Installed
 
-### Default (`ai-coding-standards install`)
+### Default (`coding-standards install`)
 
 | File | Purpose |
 |------|---------|
@@ -44,7 +44,7 @@ Quick reference for verifying the CLI installation worked correctly.
 ### Check Installation
 
 ```bash
-ai-coding-standards info
+coding-standards info
 ```
 
 ### Verify Files Exist
@@ -85,5 +85,5 @@ pytest --version
 
 ---
 
-**Last Updated**: 2025-12-08  
+**Last Updated**: 2025-12-08
 **Version**: 1.0.0

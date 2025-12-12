@@ -198,7 +198,7 @@ def run_assessment(config: AssessmentConfig) -> Dict:
 
 **Bad:**
 ```python
-def run_assessment(account_id, regions, include_cost, timeout, retry_count, 
+def run_assessment(account_id, regions, include_cost, timeout, retry_count,
                    output_format, verbose, dry_run):
     """Too many parameters - hard to remember order and purpose."""
     pass
@@ -260,11 +260,11 @@ def process_data(data: List[Dict]) -> List[Dict]:
     """Process data with validation."""
     if not data:
         return []
-    
+
     validated = _validate_data(data)
     if not validated:
         return []
-    
+
     return _transform_data(validated)
 ```
 
@@ -363,11 +363,11 @@ class SecurityAssessment:
     def __init__(self):
         self._internal_cache = {}
         self._config = self._load_config()
-    
+
     def _load_config(self) -> Dict:
         """Private method - internal implementation detail."""
         pass
-    
+
     def assess_account(self) -> Dict:
         """Public method - part of the API."""
         return self._perform_assessment()
@@ -427,15 +427,15 @@ __author__ = "Security Team"
 ```python
 class SecurityAssessment:
     """Security assessment tool for AWS accounts.
-    
+
     This class provides methods to assess AWS account security configurations,
     check compliance with CIS benchmarks, and generate detailed reports.
-    
+
     Attributes:
         account_id: AWS account ID being assessed
         regions: List of AWS regions to assess
         config: Configuration dictionary for assessment settings
-    
+
     Example:
         >>> assessor = SecurityAssessment(
         ...     account_id="123456789012",
@@ -443,10 +443,10 @@ class SecurityAssessment:
         ... )
         >>> results = assessor.run_full_assessment()
     """
-    
+
     def __init__(self, account_id: str, regions: List[str]):
         """Initialize security assessment.
-        
+
         Args:
             account_id: AWS account ID to assess
             regions: List of AWS regions to include in assessment
@@ -463,27 +463,27 @@ def assess_cis_compliance(
     benchmark_version: str = "1.4.0"
 ) -> Dict[str, Any]:
     """Assess CIS benchmark compliance for an AWS account.
-    
+
     This function checks the specified AWS account against CIS AWS Foundations
     Benchmark requirements and returns a detailed compliance report.
-    
+
     Args:
         account_id: AWS account ID to assess
         region: AWS region to check (e.g., "us-east-1")
         benchmark_version: CIS benchmark version to use. Defaults to "1.4.0".
-    
+
     Returns:
         Dictionary containing compliance results with the following keys:
             - compliant: Boolean indicating overall compliance status
             - checks: List of individual check results
             - score: Compliance score as a float between 0.0 and 1.0
             - timestamp: ISO format timestamp of assessment
-    
+
     Raises:
         ValueError: If account_id or region is invalid
         ClientError: If AWS API call fails
         TimeoutError: If assessment exceeds timeout limit
-    
+
     Example:
         >>> results = assess_cis_compliance(
         ...     account_id="123456789012",
@@ -601,7 +601,7 @@ def fetch_account_data(account_id: str) -> Dict:
     """Fetch account data from AWS."""
     if not account_id or not account_id.isdigit():
         raise ValueError(f"Invalid account ID: {account_id}")
-    
+
     try:
         sts_client = boto3.client('sts')
         response = sts_client.get_caller_identity()
@@ -644,22 +644,22 @@ def retry_with_backoff(
     backoff_factor: float = 2.0
 ) -> T:
     """Retry function with exponential backoff.
-    
+
     Args:
         func: Function to retry
         max_retries: Maximum number of retry attempts
         initial_delay: Initial delay in seconds
         backoff_factor: Multiplier for delay after each retry
-    
+
     Returns:
         Result of function call
-    
+
     Raises:
         Last exception if all retries fail
     """
     delay = initial_delay
     last_exception = None
-    
+
     for attempt in range(max_retries):
         try:
             return func()
@@ -670,7 +670,7 @@ def retry_with_backoff(
                 delay *= backoff_factor
             else:
                 raise
-    
+
     raise last_exception
 ```
 
@@ -721,7 +721,7 @@ def expensive_computation(input_value: str) -> Dict:
 class DataProcessor:
     def __init__(self):
         self._cache: Dict[str, Any] = {}
-    
+
     def get_processed_data(self, key: str) -> Any:
         """Get processed data with caching."""
         if key not in self._cache:
@@ -899,7 +899,7 @@ class AssessmentResult:
     score: float
     findings: List[str]
     timestamp: Optional[datetime] = None
-    
+
     def __post_init__(self):
         """Initialize default values after dataclass init."""
         if self.timestamp is None:
@@ -960,10 +960,10 @@ def test_assess_account_success():
     account_id = "123456789012"
     mock_session = Mock()
     expected_result = {"status": "success"}
-    
+
     # Act
     result = assess_account(account_id, session=mock_session)
-    
+
     # Assert
     assert result["status"] == "success"
     assert "account_id" in result
@@ -990,10 +990,10 @@ def test_fetch_account_data(mock_boto_client):
     mock_sts = Mock()
     mock_sts.get_caller_identity.return_value = {"Account": "123456789012"}
     mock_boto_client.return_value = mock_sts
-    
+
     # Act
     result = fetch_account_data("123456789012")
-    
+
     # Assert
     assert result["Account"] == "123456789012"
     mock_boto_client.assert_called_once_with('sts')
@@ -1054,27 +1054,27 @@ AI coders must document:
 ```python
 def assess_iam_security(session: boto3.Session) -> Dict[str, Any]:
     """Assess IAM security configuration for an AWS account.
-    
+
     This function checks IAM configurations against security best practices
     including password policies, MFA requirements, and access key rotation.
-    
+
     Args:
         session: Boto3 session for AWS API calls
-    
+
     Returns:
         Dictionary containing IAM security assessment results with keys:
             - password_policy: Password policy compliance status
             - mfa_enabled: MFA configuration status
             - access_keys: Access key security analysis
             - risk_score: Overall IAM risk score (0.0-10.0)
-    
+
     Raises:
         ClientError: If AWS IAM API calls fail
         ValueError: If session is invalid
     """
     if not session:
         raise ValueError("Session cannot be None")
-    
+
     try:
         iam_client = session.client('iam')
         # Assessment logic here
@@ -1165,7 +1165,5 @@ See `CODING_STANDARDS_QUICK_REF.md` for a condensed one-page reference guide.
 
 ---
 
-**Last Updated**: 2025-01-19  
+**Last Updated**: 2025-01-19
 **Version**: 1.0.0
-
-

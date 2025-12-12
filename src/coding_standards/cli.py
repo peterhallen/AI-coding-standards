@@ -13,10 +13,10 @@ try:
     import importlib.resources as pkg_resources
 except ImportError:
     # Python < 3.9
-    import importlib_resources as pkg_resources
+    import importlib_resources as pkg_resources  # type: ignore
 
 try:
-    from ai_coding_standards import PACKAGE_ROOT
+    from coding_standards import PACKAGE_ROOT
 except ImportError:
     # Fallback for development
     PACKAGE_ROOT = Path(__file__).parent.parent.parent
@@ -38,7 +38,7 @@ def _get_package_data_path(file_path: str) -> Optional[Path]:
     try:
         import importlib.util
 
-        spec = importlib.util.find_spec("ai_coding_standards")
+        spec = importlib.util.find_spec("coding_standards")
         if spec and spec.origin:
             installed_pkg_dir = Path(spec.origin).parent
             # Check if this is an installed package (not in our dev repo)
@@ -59,10 +59,10 @@ def _get_package_data_path(file_path: str) -> Optional[Path]:
             return data_path
         # Also try pkg_resources methods for installed packages
         try:
-            import pkg_resources as old_pkg_resources
+            import pkg_resources as old_pkg_resources  # type: ignore
 
             resource_path = old_pkg_resources.resource_filename(
-                "ai_coding_standards", f"data/{file_path}"
+                "coding_standards", f"data/{file_path}"
             )
             if Path(resource_path).exists():
                 return Path(resource_path)
@@ -84,12 +84,12 @@ def _get_package_data_path(file_path: str) -> Optional[Path]:
     # Method 2: Use importlib.resources (Python 3.9+)
     try:
         if hasattr(pkg_resources, "files"):
-            pkg = pkg_resources.files("ai_coding_standards")
+            pkg = pkg_resources.files("coding_standards")
             data_path = pkg / "data" / file_path
             if data_path.is_file():
                 # For Python 3.9+, use as_path()
                 try:
-                    return data_path.as_path()
+                    return data_path.as_path()  # type: ignore
                 except (AttributeError, TypeError):
                     # Fallback: read and write to temp file
                     import hashlib
@@ -99,7 +99,7 @@ def _get_package_data_path(file_path: str) -> Optional[Path]:
                     file_hash = hashlib.md5(str(file_path).encode()).hexdigest()[:8]
                     temp_file = (
                         Path(tempfile.gettempdir())
-                        / f"ai_coding_standards_{file_hash}_{Path(file_path).name}"
+                        / f"coding_standards_{file_hash}_{Path(file_path).name}"
                     )
                     if not temp_file.exists():
                         temp_file.write_bytes(data_path.read_bytes())
@@ -122,7 +122,7 @@ def _get_package_data_path(file_path: str) -> Optional[Path]:
             pass
         # Try direct
         try:
-            resource_path = old_pkg_resources.resource_filename("ai_coding_standards", file_path)
+            resource_path = old_pkg_resources.resource_filename("coding_standards", file_path)
             if Path(resource_path).exists():
                 return Path(resource_path)
         except Exception:
@@ -132,7 +132,7 @@ def _get_package_data_path(file_path: str) -> Optional[Path]:
 
     # Method 4: Try pkg_resources.path()
     try:
-        with pkg_resources.path("ai_coding_standards.data", file_path) as p:
+        with pkg_resources.path("coding_standards.data", file_path) as p:
             return Path(p)
     except Exception:
         pass
@@ -254,7 +254,7 @@ def get_config_files() -> List[Path]:
         ".cursorrules",
     ]
 
-    return [_get_package_data_path(f) for f in config_files if _get_package_data_path(f)]
+    return [_get_package_data_path(f) for f in config_files if _get_package_data_path(f)]  # type: ignore
 
 
 def get_js_config_files() -> List[Path]:
@@ -330,7 +330,7 @@ def install_cursor_rules(target_dir: Path, overwrite: bool = False) -> None:
         try:
             import importlib.util
 
-            spec = importlib.util.find_spec("ai_coding_standards")
+            spec = importlib.util.find_spec("coding_standards")
             if spec and spec.origin:
                 pkg_dir = Path(spec.origin).parent
                 rules_dir = pkg_dir / "data" / ".cursor" / "rules"
@@ -411,7 +411,7 @@ def install_antigravity_rules(target_dir: Path, overwrite: bool = False) -> None
         try:
             import importlib.util
 
-            spec = importlib.util.find_spec("ai_coding_standards")
+            spec = importlib.util.find_spec("coding_standards")
             if spec and spec.origin:
                 pkg_dir = Path(spec.origin).parent
                 rules_dir = pkg_dir / "data" / ".cursor" / "rules"
@@ -793,7 +793,7 @@ def check_compliance(
         for issue in issues:
             print(f"  - {issue}")
         print(
-            "\nRun 'ai-coding-standards fix-compliance' (or 'npx prettier --write .') to auto-fix some issues."
+            "\nRun 'coding-standards fix-compliance' (or 'npx prettier --write .') to auto-fix some issues."
         )
 
     if report:
@@ -805,7 +805,7 @@ def show_info() -> None:
     """Show information about the coding standards package."""
     print("AI Coding Standards")
     print("=" * 50)
-    print(f"Version: {__import__('ai_coding_standards').__version__}")
+    print(f"Version: {__import__('coding_standards').__version__}")
     print(f"Package root: {PACKAGE_ROOT}")
     print("\nConfiguration files:")
     for config in get_config_files():

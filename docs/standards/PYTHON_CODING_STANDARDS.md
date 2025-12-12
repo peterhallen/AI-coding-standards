@@ -21,7 +21,7 @@
 
 ### Purpose
 
-This document establishes coding standards and best practices to ensure consistency, readability, maintainability, and performance across all codebases. These standards are designed to be followed by both human developers and AI coding assistants to maintain a uniform code style and quality level.
+This document establishes coding-standards and best practices to ensure consistency, readability, maintainability, and performance across all codebases. These standards are designed to be followed by both human developers and AI coding assistants to maintain a uniform code style and quality level.
 
 ### Scope
 

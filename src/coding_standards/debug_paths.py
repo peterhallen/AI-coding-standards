@@ -15,7 +15,7 @@ def main() -> None:
     try:
         import importlib.util
 
-        spec = importlib.util.find_spec("ai_coding_standards")
+        spec = importlib.util.find_spec("coding_standards")
         if spec and spec.origin:
             pkg_dir = Path(spec.origin).parent
             print(f"\nPackage location: {pkg_dir}")
@@ -53,10 +53,10 @@ def main() -> None:
     print("\n" + "=" * 60)
     print("Testing pkg_resources:")
     try:
-        import pkg_resources
+        import pkg_resources  # type: ignore
 
         try:
-            path = pkg_resources.resource_filename("ai_coding_standards", "data/.editorconfig")
+            path = pkg_resources.resource_filename("coding_standards", "data/.editorconfig")
             print(f"  resource_filename: {path}")
             print(f"  Exists: {Path(path).exists()}")
         except Exception as e:
@@ -71,7 +71,7 @@ def main() -> None:
         import importlib.resources as res
 
         try:
-            pkg = res.files("ai_coding_standards")
+            pkg = res.files("coding_standards")  # type: ignore
             data = pkg / "data" / ".editorconfig"
             print(f"  Files object: {pkg}")
             print(f"  Data file object: {data}")

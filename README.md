@@ -50,14 +50,14 @@ source .venv/bin/activate  # Linux/macOS
 # .venv\Scripts\Activate.ps1  # Windows PowerShell
 
 # 2. Install the package
-pip install git+https://github.com/peterhallen/AI-coding-standards.git
+pip install git+https://github.com/peterhallen/coding-standards.git
 
 # 3. Install standards in your project
-ai-coding-standards install --cursor --docs --pre-commit
+coding-standards install --cursor --docs --pre-commit
 # OR for JavaScript projects:
-# ai-coding-standards install --lang javascript
+# coding-standards install --lang javascript
 # OR for Go projects:
-# ai-coding-standards install --lang go
+# coding-standards install --lang go
 ```
 
 ### What Gets Installed
@@ -172,31 +172,31 @@ The package includes a CLI tool for easy installation and compliance checking:
 
 ```bash
 # Show package information
-ai-coding-standards info
+coding-standards info
 
 # Install standards in current directory
-ai-coding-standards install
+coding-standards install
 
 # Install with options (including Cursor IDE support)
-ai-coding-standards install --overwrite --docs --pre-commit --cursor
+coding-standards install --overwrite --docs --pre-commit --cursor
 
 # Install with Antigravity IDE support
-ai-coding-standards install --antigravity
+coding-standards install --antigravity
 
 # Install for JavaScript/TypeScript project
-ai-coding-standards install --lang javascript
+coding-standards install --lang javascript
 
 # Install for Go project
-ai-coding-standards install --lang go
+coding-standards install --lang go
 
 # Check code compliance
-ai-coding-standards check-compliance
+coding-standards check-compliance
 
 # Auto-fix compliance issues
-ai-coding-standards fix-compliance
+coding-standards fix-compliance
 
 # Install in specific directory
-ai-coding-standards install /path/to/project
+coding-standards install /path/to/project
 ```
 
 See [INSTALLATION.md](INSTALLATION.md) for complete CLI documentation.
@@ -206,15 +206,15 @@ See [INSTALLATION.md](INSTALLATION.md) for complete CLI documentation.
 **New to the team?** Start here:
 
 1. **Quick Setup** (5 minutes): See [ONBOARDING.md](docs/guides/ONBOARDING.md)
-2. **Install Standards**: `ai-coding-standards install --cursor --docs --pre-commit`
+2. **Install Standards**: `coding-standards install --cursor --docs --pre-commit`
 3. **Read Quick Reference**: `docs/standards/PYTHON_CODING_STANDARDS_QUICK_REF.md`
 
 ## Bringing Code Into Compliance
 
 **Have existing code that needs to meet standards?**
 
-1. **Check Compliance**: `ai-coding-standards check-compliance`
-2. **Auto-Fix**: `ai-coding-standards fix-compliance`
+1. **Check Compliance**: `coding-standards check-compliance`
+2. **Auto-Fix**: `coding-standards fix-compliance`
 3. **Full Guide**: See [CODE_COMPLIANCE.md](docs/guides/CODE_COMPLIANCE.md)
 
 The compliance guide covers:
@@ -231,7 +231,7 @@ The standards are fully integrated with Cursor IDE and other agentic IDEs:
 
 ```bash
 # Install with Cursor support
-ai-coding-standards install --cursor
+coding-standards install --cursor
 ```
 
 This installs:
@@ -261,7 +261,7 @@ The standards are also integrated with Antigravity:
 
 ```bash
 # Install with Antigravity support
-ai-coding-standards install --antigravity
+coding-standards install --antigravity
 ```
 
 This installs:

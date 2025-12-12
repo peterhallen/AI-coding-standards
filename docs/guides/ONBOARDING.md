@@ -29,14 +29,14 @@ source .venv/bin/activate  # Linux/macOS
 # .venv\Scripts\Activate.ps1  # Windows
 
 # Install package
-pip install git+https://github.com/peterhallen/AI-coding-standards.git
+pip install git+https://github.com/peterhallen/coding-standards.git
 ```
 
 ### 2. Set Up Your Project
 
 ```bash
 cd your-project
-ai-coding-standards install --cursor --docs --pre-commit
+coding-standards install --cursor --docs --pre-commit
 ```
 
 ### 3. Install Dev Tools
@@ -84,14 +84,14 @@ mypy --version
 ```python
 def process_user(user_id: str, data: Dict[str, Any]) -> Dict[str, Any]:
     """Process user data and return results.
-    
+
     Args:
         user_id: Unique identifier for the user
         data: Dictionary containing user data
-    
+
     Returns:
         Dictionary with processed results
-    
+
     Raises:
         ValueError: If user_id is empty
     """
@@ -134,7 +134,7 @@ pytest --cov      # Test
 
 ### Cursor (Recommended)
 
-If you ran `ai-coding-standards install --cursor`:
+If you ran `coding-standards install --cursor`:
 1. Open your project in Cursor
 2. Done! Cursor reads `.cursorrules` automatically
 
@@ -178,13 +178,13 @@ Install extensions:
 
 ## Common Questions
 
-**Q: Function is 55 lines, what do I do?**  
+**Q: Function is 55 lines, what do I do?**
 A: Extract helper functions for logical sections.
 
-**Q: Need 6+ parameters?**  
+**Q: Need 6+ parameters?**
 A: Use a dataclass or TypedDict to group them.
 
-**Q: Do private functions need docstrings?**  
+**Q: Do private functions need docstrings?**
 A: Only if the logic is non-obvious.
 
 ---
@@ -193,5 +193,5 @@ A: Only if the logic is non-obvious.
 
 ---
 
-**Last Updated**: 2025-12-08  
+**Last Updated**: 2025-12-08
 **Version**: 1.0.0

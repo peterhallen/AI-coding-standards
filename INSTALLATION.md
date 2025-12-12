@@ -15,21 +15,21 @@ Choose your operating system for step-by-step installation instructions.
 
 ## Supported Languages
 
-You can install coding standards for:
+You can install coding-standards for:
 
 1.  **Python** (default):
     ```bash
-    ai-coding-standards install
+    coding-standards install
     ```
 
 2.  **JavaScript / TypeScript**:
     ```bash
-    ai-coding-standards install --lang javascript
+    coding-standards install --lang javascript
     ```
 
 3.  **Go**:
     ```bash
-    ai-coding-standards install --lang go
+    coding-standards install --lang go
     ```
 
 ---
@@ -102,13 +102,13 @@ You should see `(.venv)` appear at the start of your prompt.
 ### Step 5: Install the Package
 
 ```powershell
-pip install git+https://github.com/peterhallen/AI-coding-standards.git
+pip install git+https://github.com/peterhallen/coding-standards.git
 ```
 
 ### Step 6: Install Standards in Your Project
 
 ```powershell
-ai-coding-standards install --cursor --docs --pre-commit
+coding-standards install --cursor --docs --pre-commit
 ```
 
 ### Step 7: Install Development Tools
@@ -161,13 +161,13 @@ source .venv/bin/activate
 ### Step 4: Install the Package
 
 ```bash
-pip install git+https://github.com/peterhallen/AI-coding-standards.git
+pip install git+https://github.com/peterhallen/coding-standards.git
 ```
 
 ### Step 5: Install Standards in Your Project
 
 ```bash
-ai-coding-standards install --cursor --docs --pre-commit
+coding-standards install --cursor --docs --pre-commit
 ```
 
 ### Step 6: Install Development Tools
@@ -225,13 +225,13 @@ source .venv/bin/activate
 ### Step 4: Install the Package
 
 ```bash
-pip install git+https://github.com/peterhallen/AI-coding-standards.git
+pip install git+https://github.com/peterhallen/coding-standards.git
 ```
 
 ### Step 5: Install Standards in Your Project
 
 ```bash
-ai-coding-standards install --cursor --docs --pre-commit
+coding-standards install --cursor --docs --pre-commit
 ```
 
 ### Step 6: Install Development Tools
@@ -246,7 +246,7 @@ pip install black isort mypy flake8 pylint pytest pytest-cov pre-commit
 
 ### What Gets Installed
 
-The `ai-coding-standards install` command creates these files in your project:
+The `coding-standards install` command creates these files in your project:
 
 | File | Purpose |
 |------|---------|
@@ -272,14 +272,14 @@ The `ai-coding-standards install` command creates these files in your project:
 **Windows (PowerShell):**
 
 ```powershell
-ai-coding-standards info
+coding-standards info
 Get-ChildItem .editorconfig, .flake8, .pylintrc, pyproject.toml -Force
 ```
 
 **macOS/Linux:**
 
 ```bash
-ai-coding-standards info
+coding-standards info
 ls -la .editorconfig .flake8 .pylintrc pyproject.toml
 ```
 
@@ -305,22 +305,22 @@ mypy .
 
 ```bash
 # Show package info
-ai-coding-standards info
+coding-standards info
 
 # Install standards (basic)
-ai-coding-standards install
+coding-standards install
 
 # Install with all options
-ai-coding-standards install --overwrite --docs --pre-commit --cursor
+coding-standards install --overwrite --docs --pre-commit --cursor
 
 # Install to specific directory
-ai-coding-standards install /path/to/project
+coding-standards install /path/to/project
 
 # Check compliance
-ai-coding-standards check-compliance
+coding-standards check-compliance
 
 # Auto-fix issues
-ai-coding-standards fix-compliance
+coding-standards fix-compliance
 ```
 
 ### Install Options
@@ -371,7 +371,7 @@ source .venv/bin/activate
 Use `pip3` instead of `pip`:
 
 ```bash
-pip3 install git+https://github.com/peterhallen/AI-coding-standards.git
+pip3 install git+https://github.com/peterhallen/coding-standards.git
 ```
 
 ### All Systems: Permission denied
@@ -379,7 +379,7 @@ pip3 install git+https://github.com/peterhallen/AI-coding-standards.git
 Install with `--user` flag:
 
 ```bash
-pip install --user git+https://github.com/peterhallen/AI-coding-standards.git
+pip install --user git+https://github.com/peterhallen/coding-standards.git
 ```
 
 ### Git not installed
@@ -400,5 +400,5 @@ Install Git first:
 
 ---
 
-**Last Updated**: 2025-12-08  
+**Last Updated**: 2025-12-08
 **Version**: 1.0.0

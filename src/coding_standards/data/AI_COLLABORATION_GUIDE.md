@@ -57,14 +57,14 @@ Achieve consistency through three layers:
 
 ```bash
 # Install standards in the shared repository
-ai-coding-standards install --cursor --docs --pre-commit --overwrite
+coding-standards install --cursor --docs --pre-commit --overwrite
 ```
 
 **Commit these files to version control:**
 
 ```bash
 git add .cursorrules .cursor/ .editorconfig .flake8 .pylintrc pyproject.toml .pre-commit-config.yaml
-git commit -m "Add AI coding standards for team consistency"
+git commit -m "Add coding-standards for team consistency"
 git push
 ```
 
@@ -407,6 +407,5 @@ Before merging any AI-generated code:
 
 ---
 
-**Last Updated**: 2025-12-08  
+**Last Updated**: 2025-12-08
 **Version**: 1.0.0
-
