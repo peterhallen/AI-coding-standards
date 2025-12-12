@@ -1,0 +1,9 @@
+Meeting Notes - MDS Data Processing
+Date: 2024-03-25
+
+Topic: Anomalies in Q1 2024 Assessments
+
+Observations:
+1. Section A (Identification) seems to have missing NPIs.
+2. Check if we are incorrectly parsing 'SSN' fields from the old format.
+3. Review validation rules for Item A0310 (Type of Assessment).
