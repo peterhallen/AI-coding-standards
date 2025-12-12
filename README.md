@@ -68,6 +68,7 @@ coding-standards install --cursor --docs --pre-commit
 # coding-standards install --lang javascript
 # OR for Go projects:
 # coding-standards install --lang go
+
 ```
 
 ### What Gets Installed
