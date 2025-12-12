@@ -148,3 +148,14 @@ cython_debug/
 .pytest_cache/
 .ruff_cache/
 
+
+# Sensitive Data
+*.hl7
+*.pem
+*.key
+*.p12
+*.pfx
+*.cer
+*.crt
+*.der
+*.mds

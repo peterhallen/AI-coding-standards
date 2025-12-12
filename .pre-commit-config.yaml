@@ -39,7 +39,6 @@ repos:
     rev: v1.8.0
     hooks:
       - id: mypy
-        additional_dependencies: [types-all]
         args: ['--ignore-missing-imports']
 
   - repo: local
@@ -49,5 +48,14 @@ repos:
         entry: pylint
         language: system
         types: [python]
-        args: ['--max-line-length=120', '--max-args=5', '--max-complexity=10']
+        args: ['--max-line-length=120', '--max-args=5']
 
+  - repo: local
+    hooks:
+      - id: check-sensitive-data
+        name: check sensitive data
+        entry: python src/ai_coding_standards/pre_commit/sensitive_data_check.py
+        language: system
+        types: [text]
+        files: \.(txt|md|py|json|xml|hl7)$
+        exclude: ^(src/ai_coding_standards/pre_commit/sensitive_data_check\.py|tests/.*|docs/standards/PYTHON_CODING_STANDARDS\.md)$
