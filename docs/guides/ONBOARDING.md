@@ -9,8 +9,9 @@ Welcome! This guide gets you set up with the Coding Standards in 5 minutes.
 3. [Daily Workflow](#daily-workflow)
 4. [IDE Setup](#ide-setup)
 5. [Documentation](#documentation)
-6. [Checklist](#checklist)
-7. [Common Questions](#common-questions)
+6. [Security Scanning](#security-scanning)
+7. [Checklist](#checklist)
+8. [Common Questions](#common-questions)
 
 ---
 
@@ -161,8 +162,12 @@ Install extensions:
 | [AI_PROMPT_STANDARDS.md](AI_PROMPT_STANDARDS.md) | Writing prompts for AI |
 | [CURSOR_SETUP.md](CURSOR_SETUP.md) | Cursor IDE details |
 | [CODE_COMPLIANCE.md](CODE_COMPLIANCE.md) | Fixing legacy code |
+| [SECURITY_SCANNING.md](SECURITY_SCANNING.md) | Security tools guide |
 
 ---
+
+## Security Scanning
+See [SECURITY_SCANNING.md](SECURITY_SCANNING.md) for details on how to use `detect-secrets` and our custom sensitive data hooks.
 
 ## Checklist
 
