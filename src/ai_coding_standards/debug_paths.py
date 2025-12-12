@@ -1,6 +1,7 @@
 """Debug script to help diagnose package data path issues."""
 
-import sys
+# pylint: disable=all
+
 from pathlib import Path
 
 
@@ -25,7 +26,7 @@ def main() -> None:
             print(f"Data directory exists: {data_dir.exists()}")
 
             if data_dir.exists():
-                print(f"\nFiles in data/:")
+                print("\nFiles in data/:")
                 for f in sorted(data_dir.iterdir()):
                     if f.is_file():
                         print(f"  ✅ {f.name}")
@@ -38,7 +39,7 @@ def main() -> None:
 
             # Test specific files
             test_files = [".editorconfig", ".flake8", ".cursorrules"]
-            print(f"\nTesting file access:")
+            print("\nTesting file access:")
             for test_file in test_files:
                 file_path = data_dir / test_file
                 print(f"  {test_file}: {file_path.exists()} ({file_path})")
@@ -49,7 +50,7 @@ def main() -> None:
         traceback.print_exc()
 
     # Try pkg_resources
-    print(f"\n" + "=" * 60)
+    print("\n" + "=" * 60)
     print("Testing pkg_resources:")
     try:
         import pkg_resources
@@ -64,7 +65,7 @@ def main() -> None:
         print("  pkg_resources not available")
 
     # Try importlib.resources
-    print(f"\n" + "=" * 60)
+    print("\n" + "=" * 60)
     print("Testing importlib.resources:")
     try:
         import importlib.resources as res

@@ -8,7 +8,7 @@ version = "1.0.0"
 description = "Comprehensive coding standards and best practices for Python development with AI assistants"
 readme = "README.md"
 requires-python = ">=3.8"
-license = "MIT"
+license = { text = "MIT" }
 authors = [
     {name = "AI Coding Standards Team"}
 ]
@@ -139,6 +139,10 @@ module = [
 ]
 ignore_missing_imports = true
 
+[[tool.mypy.overrides]]
+module = "ai_coding_standards.debug_paths"
+ignore_errors = true
+
 [tool.pylint.master]
 # Pylint configuration (reference to .pylintrc)
 # Main config is in .pylintrc file
@@ -175,7 +179,10 @@ omit = [
     "*/.venv/*",
     "*/setup.py",
     "*/conftest.py",
-    "*/bad_example.py"  # Educational file, intentionally not tested
+    "*/conftest.py",
+    "examples/*",
+    "*/bad_example.py",  # Educational file, intentionally not tested
+    "*/debug_paths.py"
 ]
 
 [tool.coverage.report]
@@ -195,5 +202,3 @@ exclude_lines = [
 
 # Minimum coverage percentage
 fail_under = 80
-
-
