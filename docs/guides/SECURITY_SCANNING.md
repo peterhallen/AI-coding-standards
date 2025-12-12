@@ -49,10 +49,21 @@ pre-commit install
 If you are adding this to a repo that already has code:
 
 1.  **Do NOT** just install the hook yet (it may block your implementation if you have legacy secrets).
+    **Prerequisite**: You must install the tool locally:
+    ```bash
+    pip install detect-secrets
+    ```
+
 2.  **Generate the Baseline** first:
     ```bash
     detect-secrets scan > .secrets.baseline
     ```
+
+    > [!WARNING]
+    > **Windows (PowerShell) Users**: The `>` operator creates a UTF-16 file which causes errors. Use this instead:
+    > ```powershell
+    > detect-secrets scan | Out-File -Encoding utf8 .secrets.baseline
+    > ```
 3.  **Audit the Baseline**:
     ```bash
     detect-secrets audit .secrets.baseline
