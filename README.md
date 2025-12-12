@@ -1,5 +1,6 @@
 # Coding Standards
 
+[![Build Status](https://github.com/peterhallen/coding-standards/actions/workflows/ci.yml/badge.svg)](https://github.com/peterhallen/coding-standards/actions/workflows/ci.yml)
 [![Security: detect-secrets](https://img.shields.io/badge/Security-detect--secrets-blue)](docs/guides/SECURITY_SCANNING.md)
 [![Compliance: HIPAA/MDS](https://img.shields.io/badge/Compliance-HIPAA%2FMDS-green)](docs/guides/SENSITIVE_DATA_HOOK.md)
 
