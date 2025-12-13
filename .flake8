@@ -32,8 +32,7 @@ exclude =
     .pytest_cache,
     .tox,
     migrations,
-    node_modules,
-    examples
+    node_modules
 
 # Per-file ignores
 per-file-ignores =
