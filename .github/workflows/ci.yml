@@ -110,7 +110,7 @@ jobs:
           pip install -e .
 
       - name: Check code coverage
-        run: pytest --cov=examples --cov-report=term-missing --cov-fail-under=80
+        run: pytest --cov=src/coding_standards --cov-report=term-missing --cov-fail-under=80
 
       - name: Check for common issues
         run: |
