@@ -123,6 +123,9 @@ omit = [
     "*/.venv/*",
     "*/setup.py",
     "*/conftest.py",
+    "*/examples/*",
+    "*/coding_standards/cli.py",
+    "*/coding_standards/debug_paths.py",
 ]
 
 [tool.coverage.report]
